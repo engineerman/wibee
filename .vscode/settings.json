@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "*html": "html",
+        "new": "cpp",
+        "string": "cpp",
+        "string_view": "cpp",
+        "regex": "cpp",
+        "esp_spiram.h": "c"
+    },
+    "html.format.wrapLineLength": 1200
+}

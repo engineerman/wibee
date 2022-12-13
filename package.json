@@ -1,0 +1,11 @@
+{
+  "devDependencies": {
+    "eslint": "^8.23.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-react": "^7.31.8"
+  },
+  "dependencies": {
+    "materialize-css": "^1.0.0-rc.2",
+    "ws": "^8.8.1"
+  }
+}
