@@ -17,6 +17,8 @@
 
 #include "Wire.h"
 
+#include "sw6106.h"
+
 ESP32Time rtc;
 
 #define DEBUG(x) Serial.println(x);
@@ -299,6 +301,8 @@ void process_websocket_messages(const uint8_t *buffer, size_t size, int cid)
 
   String cmd = String(cc);
 
+  DEBUG(cmd);
+
   parse_message(cmd);
   parse_args();
 
@@ -576,6 +580,14 @@ void process_websocket_messages(const uint8_t *buffer, size_t size, int cid)
       ws.binary(cid, rsp);
     }
   }
+  else if (mFunc.startsWith("swVolt"))
+  {
+    float vv = readSW6106BattVoltage();
+    String rsp = "swVolt(" + String(vv) + ")";
+
+    ws.binary(cid, rsp);
+  }
+
   else
   {
     DEBUG("Unknown command " + cmd);
@@ -711,8 +723,8 @@ void setup()
     Serial.println("Failed to initialize SD card");
   }
 
+  wifiMulti.addAP("FASAP3", "FASAP321");
   wifiMulti.addAP("Zyxel7014b2", "PN79RCCVF3FP4");
-  wifiMulti.addAP("FASAP", "FASAP123");
 
   IPAddress localIP(37, 155, 1, 1);
   IPAddress gateway(37, 155, 1, 0);

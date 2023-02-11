@@ -6,6 +6,7 @@
 
 const char index_html[] PROGMEM = R"rawliteral(
 <!DOCTYPE html>
+<!DOCTYPE html>
 
 <html>
   <head>
@@ -121,6 +122,16 @@ const char index_html[] PROGMEM = R"rawliteral(
       type="text"
       class="validate"
       value="0"
+    />
+
+    <br />
+    <br />
+
+    <input
+      id="btnSW6106Volt"
+      type="button"
+      onClick="sendSW6106ReadVolt()"
+      value="SW6106 Volt"
     />
 
     <br />
@@ -262,6 +273,11 @@ const char index_html[] PROGMEM = R"rawliteral(
           ")\n"
       );
     }
+
+    function sendSW6106ReadVolt() {
+      sendCommand("swVolt\n");
+    }
+
     function sendI2CRead() {
       var slaveAddress = document.getElementById("txtI2CSlaveAddr").value;
       var regAddr = document.getElementById("txtI2CRegAddr").value;
@@ -294,7 +310,7 @@ const char index_html[] PROGMEM = R"rawliteral(
     }
 
     function getStatus() {
-      sendCommand("status");
+      sendCommand("status()");
     }
 
     function connectToHost() {
@@ -396,6 +412,16 @@ const char index_html[] PROGMEM = R"rawliteral(
                     var ind = args.lastIndexOf(",");
 
                     ta2.value = args.substring(ind + 1);
+                  } else if (received_msg.startsWith("swVolt(")) {
+                    // Parse the read value.
+                    var args = received_msg.substring(
+                      7,
+                      received_msg.length - 1
+                    );
+
+                    var ta = document.getElementById("textarea1");
+
+                    ta.value += "SW6106:" + args + "V";
                   } else {
                     var ta1 = document.getElementById("textarea1");
 
