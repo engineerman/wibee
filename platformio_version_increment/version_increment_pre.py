@@ -28,7 +28,7 @@ VERSION_FILE = 'version'
 VERSION_HEADER = 'Version.h'
 VERSION_PREFIX = '0.1.'
 VERSION_PATCH_NUMBER = 0
-increment = 1
+increment = 0
 
 print('PRE_SCRIPT RUNNING')
 
